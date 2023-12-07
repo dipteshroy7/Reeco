@@ -89,7 +89,7 @@ const StyledOrderTable = styled.div`
         background-color: #f9f9f9;
         padding-left: 20px;
         padding-right: 20px;
-        justify-content: right;
+        justify-content: center;
         svg {
             height: 25px;
             width: 25px;
@@ -113,7 +113,7 @@ const StyledOrderTable = styled.div`
             cursor: pointer;
         }
         .status-text {
-            width: calc(100% - 112px);
+            min-width: calc(100% - 112px);
             padding-right: 20px;
             display: flex;
             justify-content: center;
@@ -150,6 +150,7 @@ const StyledOrderItemRow = styled.div`
 
 interface OrderItemRowProps {
     order_item: OrderItem;
+    order_status: string;
 }
 
 const OrderItemRow: FC<OrderItemRowProps> = ({
@@ -168,6 +169,7 @@ const OrderItemRow: FC<OrderItemRowProps> = ({
         statusText,
         statusType,
     },
+    order_status,
 }) => {
     const dispatch = useAppDispatch();
     const checkMarkHandler = (id: number) =>
@@ -205,22 +207,26 @@ const OrderItemRow: FC<OrderItemRowProps> = ({
                 <div className="status-text">
                     {statusText && <BubbleText color={statusType}>{statusText}</BubbleText>}
                 </div>
-                <HiOutlineCheck
-                    className={checkMarkClassName(statusType)}
-                    onClick={() => checkMarkHandler(id)}
-                />
-                <HiOutlineXMark
-                    className={crossMarkClassName(statusType)}
-                    onClick={() => dispatch(updateMissingModalId(id))}
-                />
-                <span onClick={() => dispatch(updateEditModalId(id))}>Edit</span>
+                {order_status !== "Approved" && (
+                    <>
+                        <HiOutlineCheck
+                            className={checkMarkClassName(statusType)}
+                            onClick={() => checkMarkHandler(id)}
+                        />
+                        <HiOutlineXMark
+                            className={crossMarkClassName(statusType)}
+                            onClick={() => dispatch(updateMissingModalId(id))}
+                        />
+                        <span onClick={() => dispatch(updateEditModalId(id))}>Edit</span>
+                    </>
+                )}
             </div>
         </StyledOrderItemRow>
     );
 };
 
 const OrderTable: FC = () => {
-    const { missing_modal_id, edit_modal_id, searched_order_items } =
+    const { missing_modal_id, edit_modal_id, searched_order_items, status } =
         useTypedSelector(getOrderDetails);
     return (
         <StyledOrderTable>
@@ -237,7 +243,11 @@ const OrderTable: FC = () => {
                 <div className="no-result">No Result Found...</div>
             )}
             {searched_order_items.map((order_item) => (
-                <OrderItemRow key={Math.round(Math.random() * 10000)} order_item={order_item} />
+                <OrderItemRow
+                    key={Math.round(Math.random() * 10000)}
+                    order_item={order_item}
+                    order_status={status}
+                />
             ))}
             {missing_modal_id !== null && <MissingModal id={missing_modal_id} />}
             {edit_modal_id !== null && <EditModal id={edit_modal_id} />}

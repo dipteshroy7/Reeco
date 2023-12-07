@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
-import { useTypedSelector } from "../app/store";
+import { useAppDispatch, useTypedSelector } from "../app/store";
 import { getOrderDetails } from "../app/services/orderSlice";
+import { updateOrderStatus } from "../app/services/orderSlice";
 
 const StyledOrderHeader = styled.div`
     height: 110px;
@@ -29,20 +30,28 @@ const StyledOrderHeader = styled.div`
 `;
 
 const OrderHeader: FC = () => {
-    const data = useTypedSelector(getOrderDetails);
-
+    const { status, order_number } = useTypedSelector(getOrderDetails);
+    const [ApprovalBtnDisabled, setApprovalBtnDisabled] = useState(false);
+    const dispatch = useAppDispatch();
+    const ApproveHandler = () => {
+        if (status === "Approved") return;
+        setApprovalBtnDisabled(true);
+        dispatch(updateOrderStatus("Approved"));
+    };
     return (
         <StyledOrderHeader>
             <div className="container">
                 <div>
                     {"Orders > "}
-                    <u>Order {data.order_number}</u>
+                    <u>Order {order_number}</u>
                 </div>
                 <div className="order-lower-row">
-                    <h2 className="order">Order {data.order_number}</h2>
+                    <h2 className="order">Order {order_number}</h2>
                     <div>
                         <Button inverted>Back</Button>
-                        <Button>Approve Order</Button>
+                        <Button disabled={ApprovalBtnDisabled} onClick={ApproveHandler}>
+                            Approve Order
+                        </Button>
                     </div>
                 </div>
             </div>

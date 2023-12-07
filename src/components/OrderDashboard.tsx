@@ -1,11 +1,11 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import Button from "./Button";
 import OrderTable from "./OrderTable";
 import { SlPrinter } from "react-icons/sl";
-import { useAppDispatch } from "../app/store";
-import { addDemoOrderItem } from "../app/services/orderSlice";
+import { useAppDispatch, useTypedSelector } from "../app/store";
+import { addDemoOrderItem, getOrderDetails } from "../app/services/orderSlice";
 
 const StyledOrderDashboard = styled.div`
     background-color: #fff;
@@ -36,12 +36,24 @@ const StyledOrderDashboard = styled.div`
 
 const OrderDashboard: FC = () => {
     const dispatch = useAppDispatch();
+    const { status } = useTypedSelector(getOrderDetails);
+    const [AddBtnDisabled, setAddBtnDisabled] = useState(false);
+
+    useEffect(() => {
+        if (status === "Approved") setAddBtnDisabled(true);
+    }, [status]);
+
+    const AddBtnHandler = () => {
+        if (status === "Approved") return;
+        dispatch(addDemoOrderItem());
+    };
+
     return (
         <StyledOrderDashboard>
             <div className="search-row">
                 <SearchBar />
                 <div className="left-section">
-                    <Button inverted onClick={() => dispatch(addDemoOrderItem())}>
+                    <Button disabled={AddBtnDisabled} inverted onClick={() => AddBtnHandler()}>
                         Add item
                     </Button>
                     <SlPrinter className="printer-icon" />

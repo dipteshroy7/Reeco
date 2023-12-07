@@ -100,6 +100,9 @@ const orderSlice = createSlice({
         updateSearchedOrderDetails(state, action: PayloadAction<OrderItem[]>) {
             state.searched_order_items = action.payload;
         },
+        updateOrderStatus(state, action: PayloadAction<string>) {
+            state.status = action.payload;
+        },
         addDemoOrderItem(state) {
             state.order_items.push({
                 id: state.order_items.length,
@@ -134,6 +137,7 @@ export const {
     updateOrderItemOldTotalPrice,
     updateOrderItemReason,
     updateSearchedOrderDetails,
+    updateOrderStatus,
     addDemoOrderItem,
 } = orderSlice.actions;
 

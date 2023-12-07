@@ -12,23 +12,37 @@ const StyledButton = styled.button<ButtonProps>`
     border: 2px solid #1c633f;
     border-radius: 50px;
     cursor: pointer;
-
     &:hover {
         background-color: ${({ inverted }) => (inverted ? "#ececec" : "#14492f")};
         border-color: #14492f;
+    }
+    &.disabled {
+        background-color: #707070;
+        color: #fff;
+        border-color: #707070;
+        cursor: not-allowed;
+    }
+    &.disabled:hover {
+        background-color: #707070;
+        border-color: #707070;
     }
 `;
 
 interface ButtonProps {
     children: string;
     inverted?: boolean;
+    disabled?: boolean;
     onClick?: () => void;
 }
 
-const Button: FC<ButtonProps> = ({ children, inverted = false, onClick }) => {
+const Button: FC<ButtonProps> = ({ children, inverted = false, disabled = false, onClick }) => {
     return (
         <StyleSheetManager shouldForwardProp={(propName) => isValidProp(propName)}>
-            <StyledButton inverted={inverted} onClick={onClick}>
+            <StyledButton
+                className={disabled ? "disabled" : ""}
+                inverted={inverted}
+                onClick={onClick}
+            >
                 {children}
             </StyledButton>
         </StyleSheetManager>
