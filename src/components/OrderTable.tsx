@@ -113,7 +113,7 @@ const StyledOrderTable = styled.div`
             cursor: pointer;
         }
         .status-text {
-            min-width: calc(100% - 112px);
+            width: calc(100% - 112px);
             padding-right: 20px;
             display: flex;
             justify-content: center;
