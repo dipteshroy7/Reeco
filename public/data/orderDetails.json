@@ -34,8 +34,8 @@
             "old_total_price": null,
             "old_quantity": null,
             "weight": "2LB",
-            "statusText": "Approved",
-            "statusType": "green",
+            "statusText": "",
+            "statusType": null,
             "reason": ""
         },
         {
@@ -50,8 +50,8 @@
             "old_total_price": null,
             "old_quantity": null,
             "weight": "1 loaf",
-            "statusText": "Missing",
-            "statusType": "orange",
+            "statusText": "",
+            "statusType": null,
             "reason": ""
         },
         {
@@ -66,9 +66,9 @@
             "old_total_price": null,
             "old_quantity": null,
             "weight": "1 dozen",
-            "statusText": "Missing - Urgent",
-            "statusType": "red",
-            "reason": "Missing product"
+            "statusText": "",
+            "statusType": null,
+            "reason": ""
         },
         {
             "id": 4,
@@ -78,12 +78,12 @@
             "price": 3.5,
             "total_price": 28,
             "quantity": 8,
-            "old_price": 3.25,
-            "old_total_price": 26,
+            "old_price": null,
+            "old_total_price": null,
             "old_quantity": null,
             "weight": "1 gallon",
-            "statusText": "Price update",
-            "statusType": "green",
+            "statusText": "",
+            "statusType": null,
             "reason": ""
         },
         {
@@ -95,11 +95,11 @@
             "total_price": 19.25,
             "quantity": 11,
             "old_price": null,
-            "old_total_price": 17.5,
-            "old_quantity": 10,
+            "old_total_price": null,
+            "old_quantity": null,
             "weight": "1LB",
-            "statusText": "Quantity update",
-            "statusType": "green",
+            "statusText": "",
+            "statusType": null,
             "reason": ""
         },
         {
@@ -110,12 +110,12 @@
             "price": 3.75,
             "total_price": 60,
             "quantity": 16,
-            "old_price": 3.35,
-            "old_total_price": 67,
-            "old_quantity": 20,
+            "old_price": null,
+            "old_total_price": null,
+            "old_quantity": null,
             "weight": "1.5LB",
-            "statusText": "Quantity and Price updated",
-            "statusType": "green",
+            "statusText": "",
+            "statusType": null,
             "reason": ""
         }
     ]

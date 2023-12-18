@@ -243,7 +243,16 @@ const EditModal: FC<EditModalProps> = ({ id }) => {
                             </div>
                             <div>
                                 <div className="title">Quantity</div>
-                                <button onClick={() => setUpdatedQuantity((q) => q - 1)}>-</button>
+                                <button
+                                    onClick={() =>
+                                        setUpdatedQuantity((q) => {
+                                            if (q === 0) return 0;
+                                            else return q - 1;
+                                        })
+                                    }
+                                >
+                                    -
+                                </button>
                                 <input
                                     type="number"
                                     min="0"
@@ -257,7 +266,9 @@ const EditModal: FC<EditModalProps> = ({ id }) => {
                                         )
                                     }
                                 />
-                                <button onClick={() => setUpdatedQuantity((q) => q + 1)}>+</button>
+                                <button onClick={() => setUpdatedQuantity((q) => Math.abs(q + 1))}>
+                                    +
+                                </button>
                                 <p className="weight-unit"> x {weight}</p>
                             </div>
                             <div>
